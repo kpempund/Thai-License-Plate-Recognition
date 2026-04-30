@@ -16,7 +16,6 @@ Trains a YOLO11n to extract Thai character on license plates.
 |-------|--------|-----------|
 |  Number  | 92.27%  | 70.73%     |
 |  Province | 85.77%  | 85.37%     |
-|-------|--------|-----------|
 |  Full Plate | 84.32%  | 58.54%     |
 
 

@@ -1,0 +1,7 @@
+# requirements.txt
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+easyocr>=1.7.0
+opencv-python>=4.8.0
+numpy>=1.21.0
+Levenshtein>=0.23.0
+pandas>=2.0.0

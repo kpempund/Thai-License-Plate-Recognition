@@ -1,6 +1,13 @@
 # Thai License Plate Detection & OCR
 
-Trains a YOLO26s detector on Thai license plates.
+Training notebook and artefacts for the plate-detection stage.
+
+| Item | Description |
+|------|-------------|
+| `train_lp_detector.ipynb` | End-to-end training notebook: downloads the dataset from Roboflow, trains YOLO26s with custom augmentations (HSV, shear, perspective, mosaic, erasing), evaluates on val & test sets, and runs inference on `CarDemo.mp4` to produce `CarDemo_Inferenced.mp4`. |
+| `CarDemo.mp4` | Raw input video used for qualitative demo. |
+| `CarDemo_Inferenced.mp4` | Output video with bounding-box overlays from the trained detector. |
+| `runs/yolo26s/` | Ultralytics run directory containing training curves, confusion matrices, and saved weights for train/val/test experiments. |
 
 ## Pipeline overview
 
@@ -11,7 +18,6 @@ Trains a YOLO26s detector on Thai license plates.
 | 3 | Evaluate on validation set |
 | 4 | Evaluate on test set |
 | 5 | Run detection on `CarDemo.mp4` → `CarDemo_Inferenced.mp4` |
-| 6 | Sanity-check EasyOCR on a single image |
 
 ## Results
 

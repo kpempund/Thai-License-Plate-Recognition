@@ -33,6 +33,7 @@ Final stage of the pipeline: Extracts, sanitizes, and validates license plate te
 2. Install dependencies:
 ```bash
 pip install -r requirements.txt
+```
 
 ## Model & Logic Specs
 

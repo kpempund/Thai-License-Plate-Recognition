@@ -6,17 +6,19 @@ Final stage of the pipeline: Extracts, sanitizes, and validates license plate te
 |------|-------------|
 | `ocr_pipeline.py` | The core engine: includes image upscaling, spatial routing, regex-based grammar enforcement, and fuzzy province matching. |
 | `evaluation.py` | Benchmarking script that calculates Character Accuracy Rate (CAR) and Word Accuracy Rate (WAR). |
+| `format_manual_datasets.py` | Preparation script: Decodes Thai character classes (TH01-TH37) and maps province codes to full Thai names to generate the labels.csv ground truth file. |
 | `requirements.txt` | Python dependencies including `easyocr`, `opencv-python`, and `numpy`. |
 
 ## Pipeline Overview
 
 | Step | Technique | What it does |
 |------|-----------|--------------|
-| 1 | **Image Upscaling** | Resizes input by 200% and applies sharpening to fix blurry/low-res characters. |
-| 2 | **Detection** | Runs EasyOCR with a strict Thai/Numeric `ALLOWLIST` to prevent hallucinations. |
-| 3 | **Spatial Routing** | Uses Y-axis geometry (60/40 split) to separate the **Plate Number** from the **Province**. |
-| 4 | **Grammar Sanitization** | Uses Regex to enforce `[Prefix][Consonants][Suffix]` rules and a dictionary to fix visual errors (e.g., `เ,โ,ไ` → `1`). |
-| 5 | **Fuzzy Matching** | Uses Levenshtein distance to snap misspelled OCR text to the official list of 77 Thai provinces. |
+| 1 | **Dataset Formatting** | Processes raw CSV exports from Roboflow/TensorFlow, decodes the character map, and organizes images into the test_images/ folder for evaluation. |
+| 2 | **Image Upscaling** | Resizes input by 200% and applies sharpening to fix blurry/low-res characters. |
+| 3 | **Detection** | Runs EasyOCR with a strict Thai/Numeric `ALLOWLIST` to prevent hallucinations. |
+| 4 | **Spatial Routing** | Uses Y-axis geometry (60/40 split) to separate the **Plate Number** from the **Province**. |
+| 5 | **Grammar Sanitization** | Uses Regex to enforce `[Prefix][Consonants][Suffix]` rules and a dictionary to fix visual errors (e.g., `เ,โ,ไ` → `1`). |
+| 6 | **Fuzzy Matching** | Uses Levenshtein distance to snap misspelled OCR text to the official list of 77 Thai provinces. |
 
 ## Results (Evaluation on 41 Images)
 
@@ -37,6 +39,7 @@ pip install -r requirements.txt
 
 ## Model & Logic Specs
 
+- **Label Decoding:** Uses a custom CHAR_DECODER (TH01–TH37) and PROVINCE_MAP (e.g., BKK $\rightarrow$ กรุงเทพมหานคร) to translate technical dataset classes into human-readable Thai text.
 - **Core Engine:** EasyOCR (CRAFT detector + CRNN recognizer)
 - **Languages:** Thai (`th`), English (`en`)
 - **Spatial Threshold:** 60% Y-axis split for Number vs. Province

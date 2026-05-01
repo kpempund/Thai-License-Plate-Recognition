@@ -33,3 +33,19 @@ Final stage of the pipeline: Extracts, sanitizes, and validates license plate te
 2. Install dependencies:
 ```bash
 pip install -r requirements.txt
+
+## Model & Logic Specs
+
+- **Core Engine:** EasyOCR (CRAFT detector + CRNN recognizer)
+- **Languages:** Thai (`th`), English (`en`)
+- **Spatial Threshold:** 60% Y-axis split for Number vs. Province
+- **Fuzzy Logic:** `difflib.get_close_matches` with a `0.3` cutoff for Province validation
+
+### Post-Processing Settings
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `upscale_factor` | 2.0 | Bicubic interpolation multiplier |
+| `y_split_ratio` | 0.6 | Separates top row from bottom row |
+| `confidence_min`| 0.1 | Ignores low-confidence OCR "ghost" text |
+| `fuzzy_cutoff` | 0.3 | Forgiveness level for province typos |

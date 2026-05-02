@@ -31,7 +31,6 @@ Trains a YOLO11n to extract Thai character on license plates.
 - Architecture: YOLO11n (`yolo11n.pt`)
 - Input resolution: 640 × 640
 - Training: 100 epochs, early stopping patience 10, batch size auto
-- Dataset: [License Plate — Roboflow](https://app.roboflow.com/twoweekfinal/license-plate-eql7j-0hwlp/1)
 
 ### Augmentation settings
 
